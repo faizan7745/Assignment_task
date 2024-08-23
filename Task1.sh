@@ -100,31 +100,46 @@ if [[ $# -eq 0 ]]; then
     usage
 fi
 
+# Refresh interval
+refresh_interval=5
+
+# Variables to track which sections to display
+cpu_flag=false
+memory_flag=false
+network_flag=false
+disk_flag=false
+processes_flag=false
+services_flag=false
+all_flag=false
+
 while [[ $# -gt 0 ]]; do
     case $1 in
         -h|--help)
             usage
             ;;
         -cpu)
-            cpu_usage
+            cpu_flag=true
             ;;
         -memory)
-            memory_usage
+            memory_flag=true
             ;;
         -network)
-            network_usage
+            network_flag=true
             ;;
         -disk)
-            disk_usage
+            disk_flag=true
             ;;
         -processes)
-            processes_usage
+            processes_flag=true
             ;;
         -services)
-            services_status
+            services_flag=true
             ;;
         -all)
-            show_all
+            all_flag=true
+            ;;
+        [0-9]*)
+            refresh_interval=$1
             ;;
         *)
             echo "Invalid option: $1"
@@ -132,4 +147,32 @@ while [[ $# -gt 0 ]]; do
             ;;
     esac
     shift
+done
+
+# Main loop to refresh the dashboard
+while true; do
+    clear
+    if $all_flag; then
+        show_all
+    else
+        if $cpu_flag; then
+            cpu_usage
+        fi
+        if $memory_flag; then
+            memory_usage
+        fi
+        if $network_flag; then
+            network_usage
+        fi
+        if $disk_flag; then
+            disk_usage
+        fi
+        if $processes_flag; then
+            processes_usage
+        fi
+        if $services_flag; then
+            services_status
+        fi
+    fi
+    sleep $refresh_interval
 done
