@@ -1,10 +1,11 @@
 #!/bin/bash
 
 # Used function in this Script.
-usage() {
+usage() i{
     echo "Usage: $0 [options]"
     echo "Options:"
-    echo "  -memory,            for memory usage information"
+    echo "  -Top_app           for Displaying Top 10 most meomory And cpu consuming app"
+    echo "  -memory,           for memory usage information"
     echo "  -network           for network usage information"
     echo "  -disk              for disk usage information"
     echo "  -processes         for processes usage information"
@@ -17,7 +18,15 @@ usage() {
 }
 
 # To Dispaly Top 10 Most Used Applications:
+display_top_apps() {
+    echo "Top 10 Most Used Applications (CPU and Memory) "
+    echo "Top 10 CPU consuming processes:"
+    ps aux --sort=-%cpu | head -n 11 | awk '{print $1, $2, $3, $4, $11}'
 
+    echo "Top 10 Memory consuming processes:"
+    ps aux --sort=-%mem | head -n 11 | awk '{print $1, $2, $3, $4, $11}'
+    echo
+}
 cpu_usage() {
     echo "------------------ CPU Usage ------------------"
     top -b -n 1 | head -n 12 | tail -n 5
@@ -60,7 +69,7 @@ disk_usage() {
     echo
 }
 
-# To display processes usage 
+# To display processes usage
 processes_usage() {
     echo "--------------- Process Monitoring -------------"
     echo "Number of active processes:"
@@ -87,6 +96,7 @@ services_status() {
 
 # To display all dashboard information
 show_all() {
+    display_top_apps
     cpu_usage
     memory_usage
     network_usage
@@ -104,6 +114,7 @@ fi
 refresh_interval=5
 
 # Variables to track which sections to display
+display_flag=false
 cpu_flag=false
 memory_flag=false
 network_flag=false
@@ -134,6 +145,9 @@ while [[ $# -gt 0 ]]; do
             ;;
         -services)
             services_flag=true
+            ;;
+        -Top_app)
+           display_flag=true
             ;;
         -all)
             all_flag=true
@@ -172,6 +186,9 @@ while true; do
         fi
         if $services_flag; then
             services_status
+        fi
+        if $display_flag; then
+            display_top_apps
         fi
     fi
     sleep $refresh_interval
