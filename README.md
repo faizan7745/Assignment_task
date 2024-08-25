@@ -1,6 +1,6 @@
 # Assignment_task
 
-####  Monitoring System Resources for a Proxy Server  ####
+#### 1]  Monitoring System Resources for a Proxy Server  ####
 -  Monitoring System Resources for a Proxy Server -
  This Bash script will provide real-time Monitoring of and this script will refresh the data every few seconds, providing real-time insights:
 
@@ -28,3 +28,23 @@ Options:
   -h                for help message and exit
   -cpu               for CPU usage information
 
+
+
+2] Script for Automating Security Audits and Server Hardening on Linux Servers
+ This script will 
+ 1- User and Group Audits:
+ 2- File and Directory Permissions:
+ 3- Audit running services.
+ 4- Firewall and Network Security:
+ 5- IP and Network Configuration Checks:
+ 6- Security Updates and Patching:
+ 7- Log momlorng
+ 8- Server Hardening Steps:
+ 9- Custom Security Checks:
+ 10- Reporting and Alerting:
+
+
+ Steps-
+ 1] Create a file security_check.sh
+ 2] A file should be there for example security_audit.conf
+ 3] give permission to run using chmod +x security_check.sh
