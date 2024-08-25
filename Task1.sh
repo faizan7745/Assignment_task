@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Used function in this Script.
-usage() i{
+usage() {
     echo "Usage: $0 [options]"
     echo "Options:"
     echo "  -Top_app           for Displaying Top 10 most meomory And cpu consuming app"
